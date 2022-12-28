@@ -25,9 +25,9 @@ const renderMarkup = async () => {
 
       refs.gallery.innerHTML = galleryMarkupСreation(results);
 
-      if (total_results > pageLimit) {
-        observeLastCard();
-      }
+      // if (total_results > pageLimit) {
+      //   observeLastCard();
+      // }
 
       Loading.remove();
       return;
@@ -63,42 +63,42 @@ const galleryMarkupСreation = results => {
   return markup;
 };
 
-const loadMore = async () => {
-  page += 1;
-  Loading.hourglass();
+// const loadMore = async () => {
+//   page += 1;
+//   Loading.hourglass();
 
-  try {
-    console.log(page);
-    const { results, total_pages, total_results } = await fetchTrending(page);
-    refs.gallery.insertAdjacentHTML(
-      'beforeend',
-      galleryMarkupСreation(results)
-    );
-    Loading.remove();
+//   try {
+//     console.log(page);
+//     const { results, total_pages, total_results } = await fetchTrending(page);
+//     refs.gallery.insertAdjacentHTML(
+//       'beforeend',
+//       galleryMarkupСreation(results)
+//     );
+//     Loading.remove();
 
-    // if (page * pageLimit >= totalHits) {
-    //   Notify.info("We're sorry, but you've reached the end of search results.");
-    //   return;
-    // }
+//     // if (page * pageLimit >= totalHits) {
+//     //   Notify.info("We're sorry, but you've reached the end of search results.");
+//     //   return;
+//     // }
 
-    observeLastCard();
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error.message);
-  }
-};
+//     observeLastCard();
+//   } catch (error) {
+//     // eslint-disable-next-line no-console
+//     console.error(error.message);
+//   }
+// };
 
-const observer = new IntersectionObserver(
-  ([entry], observer) => {
-    if (entry.isIntersecting) {
-      observer.unobserve(entry.target);
-      loadMore();
-    }
-  },
-  { threshold: 0.5 }
-);
+// const observer = new IntersectionObserver(
+//   ([entry], observer) => {
+//     if (entry.isIntersecting) {
+//       observer.unobserve(entry.target);
+//       loadMore();
+//     }
+//   },
+//   { threshold: 0.5 }
+// );
 
-const observeLastCard = () => {
-  lastCard = document.querySelector('.movieCard:last-child');
-  observer.observe(lastCard);
-};
+// const observeLastCard = () => {
+//   lastCard = document.querySelector('.movieCard:last-child');
+//   observer.observe(lastCard);
+// };
